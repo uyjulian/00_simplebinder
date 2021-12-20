@@ -29,6 +29,7 @@ BOOLEAN WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID lpReserved)
 	return TRUE;
 }
 
+#if 0
 static iTVPFunctionExporter * FunctionExporter = NULL;
 
 //---------------------------------------------------------------------------
@@ -93,6 +94,7 @@ static void std_terminate_handler()
 	std::abort();
 }
 #endif
+#endif
 
 
 static tjs_int GlobalRefCountAtInit = 0;
@@ -103,9 +105,11 @@ extern bool onV2Unlink();
 EXPORT(HRESULT) V2Link(iTVPFunctionExporter *exporter)
 {
 	TVPInitImportStub(exporter);
+#if 0
 #ifdef _WIN32
 	FunctionExporter = exporter;
 	std::set_terminate(std_terminate_handler);
+#endif
 #endif
 
 	if (!onV2Link()) return E_FAIL;
